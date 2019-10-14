@@ -617,6 +617,10 @@ func (p *historyPersistenceClient) GetName() string {
 }
 
 func (p *historyPersistenceClient) AppendHistoryEvents(request *AppendHistoryEventsRequest) (*AppendHistoryEventsResponse, error) {
+	p.logger.Warn("EventsV1 legacy request AppendHistoryEvents",
+		tag.WorkflowID(request.Execution.GetWorkflowId()),
+		tag.WorkflowDomainID(request.DomainID),
+		tag.WorkflowRunID(request.Execution.GetRunId()))
 	p.metricClient.IncCounter(metrics.PersistenceAppendHistoryEventsScope, metrics.PersistenceRequests)
 
 	sw := p.metricClient.StartTimer(metrics.PersistenceAppendHistoryEventsScope, metrics.PersistenceLatency)
@@ -632,6 +636,11 @@ func (p *historyPersistenceClient) AppendHistoryEvents(request *AppendHistoryEve
 
 func (p *historyPersistenceClient) GetWorkflowExecutionHistory(
 	request *GetWorkflowExecutionHistoryRequest) (*GetWorkflowExecutionHistoryResponse, error) {
+	p.logger.Warn("EventsV1 legacy request GetWorkflowExecutionHistory",
+		tag.WorkflowID(request.Execution.GetWorkflowId()),
+		tag.WorkflowDomainID(request.DomainID),
+		tag.WorkflowRunID(request.Execution.GetRunId()))
+
 	p.metricClient.IncCounter(metrics.PersistenceGetWorkflowExecutionHistoryScope, metrics.PersistenceRequests)
 
 	sw := p.metricClient.StartTimer(metrics.PersistenceGetWorkflowExecutionHistoryScope, metrics.PersistenceLatency)
@@ -647,6 +656,11 @@ func (p *historyPersistenceClient) GetWorkflowExecutionHistory(
 
 func (p *historyPersistenceClient) GetWorkflowExecutionHistoryByBatch(
 	request *GetWorkflowExecutionHistoryRequest) (*GetWorkflowExecutionHistoryByBatchResponse, error) {
+	p.logger.Warn("EventsV1 legacy request GetWorkflowExecutionHistoryByBatch",
+		tag.WorkflowID(request.Execution.GetWorkflowId()),
+		tag.WorkflowDomainID(request.DomainID),
+		tag.WorkflowRunID(request.Execution.GetRunId()))
+
 	p.metricClient.IncCounter(metrics.PersistenceGetWorkflowExecutionHistoryScope, metrics.PersistenceRequests)
 
 	sw := p.metricClient.StartTimer(metrics.PersistenceGetWorkflowExecutionHistoryScope, metrics.PersistenceLatency)
@@ -662,6 +676,11 @@ func (p *historyPersistenceClient) GetWorkflowExecutionHistoryByBatch(
 
 func (p *historyPersistenceClient) DeleteWorkflowExecutionHistory(
 	request *DeleteWorkflowExecutionHistoryRequest) error {
+	p.logger.Warn("EventsV1 legacy request DeleteWorkflowExecutionHistory",
+		tag.WorkflowID(request.Execution.GetWorkflowId()),
+		tag.WorkflowDomainID(request.DomainID),
+		tag.WorkflowRunID(request.Execution.GetRunId()))
+
 	p.metricClient.IncCounter(metrics.PersistenceDeleteWorkflowExecutionHistoryScope, metrics.PersistenceRequests)
 
 	sw := p.metricClient.StartTimer(metrics.PersistenceDeleteWorkflowExecutionHistoryScope, metrics.PersistenceLatency)
